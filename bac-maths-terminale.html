@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bac Maths Terminale — Fiches & Révisions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --card: #1a1e2a;
+    --border: #252a38;
+    --accent: #6c63ff;
+    --accent2: #ff6584;
+    --accent3: #43e97b;
+    --accent4: #f7971e;
+    --text: #e8eaf0;
+    --muted: #7a8099;
+    --formula-bg: #0a0c12;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #0d0f14 0%, #1a1030 50%, #0d1420 100%);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(108,99,255,0.2);
+    border: 1px solid rgba(108,99,255,0.4);
+    color: #a89fff;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 30%, #a89fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+  }
+  .countdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,101,132,0.15);
+    border: 1px solid rgba(255,101,132,0.3);
+    color: #ff8fa3;
+    padding: 0.5rem 1.2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .countdown span { font-size: 1.3rem; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,15,20,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding: 0 1rem;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { color: var(--text); }
+  .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* MAIN LAYOUT */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  /* SECTIONS */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* CHAPITRE CARDS */
+  .chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .chapter-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .chapter-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 8px 30px rgba(108,99,255,0.2);
+  }
+  .card-header {
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .card-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; }
+  .card-sub { color: var(--muted); font-size: 0.82rem; }
+  .card-footer {
+    padding: 0.75rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  /* FICHE DE COURS */
+  .fiche {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .fiche-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .fiche h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #a89fff;
+    margin: 1.5rem 0 0.7rem;
+    padding-left: 0.8rem;
+    border-left: 3px solid var(--accent);
+  }
+  .fiche p { color: #c8ccd8; font-size: 0.95rem; margin-bottom: 0.7rem; }
+  .fiche ul { list-style: none; padding: 0; }
+  .fiche ul li {
+    padding: 0.4rem 0 0.4rem 1.2rem;
+    position: relative;
+    color: #c8ccd8;
+    font-size: 0.93rem;
+  }
+  .fiche ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .formula-box {
+    background: var(--formula-bg);
+    border: 1px solid rgba(108,99,255,0.3);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #d4d8f0;
+    overflow-x: auto;
+  }
+  .formula-box .label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+  .important-box {
+    background: rgba(255,101,132,0.08);
+    border: 1px solid rgba(255,101,132,0.25);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    color: #ffb3c0;
+    font-size: 0.9rem;
+  }
+  .important-box::before {
+    content: '⚠ À retenir — ';
+    font-weight: 700;
+    color: var(--accent2);
+  }
+  .tip-box {
+    background: rgba(67,233,123,0.07);
+    border: 1px solid rgba(67,233,123,0.2);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    color: #a0f0b8;
+    font-size: 0.9rem;
+  }
+  .tip-box::before {
+    content: '💡 Astuce — ';
+    font-weight: 700;
+    color: var(--accent3);
+  }
+
+  /* EXERCICES */
+  .exercice-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .ex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .ex-title { font-weight: 600; font-size: 1rem; }
+  .level-badge {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+  .level-1 { background: rgba(67,233,123,0.15); color: #43e97b; }
+  .level-2 { background: rgba(247,151,30,0.15); color: #f7971e; }
+  .level-3 { background: rgba(255,101,132,0.15); color: #ff6584; }
+
+  .ex-text { color: #c8ccd8; font-size: 0.93rem; margin-bottom: 1rem; line-height: 1.7; }
+  .ex-input {
+    width: 100%;
+    background: var(--formula-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 0.8rem;
+  }
+  .ex-input:focus { border-color: var(--accent); }
+  .ex-input.correct { border-color: var(--accent3); background: rgba(67,233,123,0.05); }
+  .ex-input.wrong { border-color: var(--accent2); background: rgba(255,101,132,0.05); }
+  .btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn:hover { background: #5752e3; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
+  .ex-feedback {
+    margin-top: 0.8rem;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    display: none;
+  }
+  .ex-feedback.show { display: block; }
+  .ex-feedback.correct-fb { background: rgba(67,233,123,0.1); color: #43e97b; border: 1px solid rgba(67,233,123,0.25); }
+  .ex-feedback.wrong-fb { background: rgba(255,101,132,0.1); color: #ff8fa3; border: 1px solid rgba(255,101,132,0.25); }
+  .show-solution-btn {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .solution-box {
+    display: none;
+    margin-top: 0.8rem;
+    background: rgba(108,99,255,0.07);
+    border: 1px solid rgba(108,99,255,0.2);
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 0.88rem;
+    color: #c8ccd8;
+    line-height: 1.7;
+  }
+  .solution-box.show { display: block; }
+
+  /* QCM */
+  .qcm-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .qcm-question {
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
+  .qcm-question em {
+    font-style: italic;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05em;
+    color: #d4d8ff;
+  }
+  .qcm-options { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem; }
+  .qcm-option {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.8rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    text-align: left;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .qcm-option:hover:not(:disabled) { border-color: var(--accent); background: rgba(108,99,255,0.08); }
+  .qcm-option.selected { border-color: var(--accent); background: rgba(108,99,255,0.12); }
+  .qcm-option.correct { border-color: var(--accent3); background: rgba(67,233,123,0.1); color: #43e97b; }
+  .qcm-option.wrong { border-color: var(--accent2); background: rgba(255,101,132,0.1); color: #ff8fa3; }
+  .qcm-option .letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .qcm-feedback {
+    font-size: 0.88rem;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    display: none;
+    margin-top: 0.5rem;
+  }
+  .qcm-feedback.show { display: block; }
+  .qcm-feedback.correct-fb { background: rgba(67,233,123,0.1); color: #43e97b; }
+  .qcm-feedback.wrong-fb { background: rgba(255,101,132,0.1); color: #ff8fa3; }
+
+  /* SCORE */
+  .score-bar {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .score-num { font-size: 2rem; font-weight: 700; color: var(--accent3); }
+  .score-label { color: var(--muted); font-size: 0.85rem; }
+  .score-track {
+    flex: 1;
+    min-width: 150px;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .score-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent3), var(--accent));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  /* PROGRESS STARS */
+  .chapter-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+  .star { font-size: 0.85rem; color: var(--border); }
+  .star.filled { color: #f7971e; }
+
+  /* TABS inside section */
+  .sub-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .sub-tab {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.5rem 1.2rem;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .sub-tab:hover { color: var(--text); border-color: var(--accent); }
+  .sub-tab.active { background: rgba(108,99,255,0.15); border-color: var(--accent); color: var(--accent); }
+
+  /* ACCORDION */
+  .accordion {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 0.8rem;
+  }
+  .accordion-header {
+    padding: 1rem 1.3rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+  }
+  .accordion-header:hover { background: rgba(108,99,255,0.05); }
+  .accordion-arrow { transition: transform 0.3s; color: var(--muted); }
+  .accordion-arrow.open { transform: rotate(90deg); }
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .accordion-body.open { max-height: 3000px; }
+  .accordion-inner { padding: 0 1.3rem 1.3rem; }
+
+  /* FORMULAS TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin: 1rem 0;
+  }
+  th {
+    background: rgba(108,99,255,0.12);
+    color: #a89fff;
+    padding: 0.7rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(108,99,255,0.2);
+  }
+  td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: #c8ccd8;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  /* HOME */
+  .home-intro {
+    text-align: center;
+    padding: 1rem 0 2rem;
+  }
+  .home-intro h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .home-intro p { color: var(--muted); max-width: 500px; margin: 0 auto 2rem; }
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .home-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .home-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .home-card .icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+  .home-card h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+  .home-card p { font-size: 0.82rem; color: var(--muted); }
+
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 2rem 0;
+  }
+
+  /* Media */
+  @media (max-width: 600px) {
+    main { padding: 1rem; }
+    .fiche { padding: 1.2rem; }
+    header { padding: 2rem 1rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Révisions Bac · Mathemax</div>
+  <h1>Maths Terminale Spé</h1>
+  <p>Fiches de cours, exercices interactifs et QCM pour le bac</p>
+  <div class="countdown">
+    <span>⏳</span> 1 semaine avant le bac — accroche-toi !
+  </div>
+</header>
+
+<nav>
+  <button class="nav-btn active" onclick="showSection('home')">🏠 Accueil</button>
+  <button class="nav-btn" onclick="showSection('suites')">📈 Suites</button>
+  <button class="nav-btn" onclick="showSection('fonctions')">📐 Fonctions</button>
+  <button class="nav-btn" onclick="showSection('limites')">∞ Limites</button>
+  <button class="nav-btn" onclick="showSection('integrales')">∫ Intégrales</button>
+  <button class="nav-btn" onclick="showSection('proba')">🎲 Probabilités</button>
+  <button class="nav-btn" onclick="showSection('geometrie')">📦 Géométrie 3D</button>
+  <button class="nav-btn" onclick="showSection('formules')">📋 Formules</button>
+  <button class="nav-btn" onclick="showSection('qcm')">🎯 Grand QCM</button>
+</nav>
+
+<main>
+
+<!-- ===== HOME ===== -->
+<div id="home" class="section active">
+  <div class="home-intro">
+    <h2>Quel chapitre révises-tu ?</h2>
+    <p>Clique sur un chapitre pour accéder aux fiches de cours, exercices guidés et QCM.</p>
+  </div>
+  <div class="home-grid">
+    <div class="home-card" onclick="showSection('suites')">
+      <div class="icon">📈</div>
+      <h3>Suites numériques</h3>
+      <p>Arithmétiques, géométriques, récurrentes, limites</p>
+    </div>
+    <div class="home-card" onclick="showSection('fonctions')">
+      <div class="icon">📐</div>
+      <h3>Fonctions & Dérivées</h3>
+      <p>log, exp, convexité, équations différentielles</p>
+    </div>
+    <div class="home-card" onclick="showSection('limites')">
+      <div class="icon">∞</div>
+      <h3>Limites de fonctions</h3>
+      <p>Formes indéterminées, continuité, TVI</p>
+    </div>
+    <div class="home-card" onclick="showSection('integrales')">
+      <div class="icon">∫</div>
+      <h3>Primitives & Intégrales</h3>
+      <p>Calcul d'aires, intégration par parties</p>
+    </div>
+    <div class="home-card" onclick="showSection('proba')">
+      <div class="icon">🎲</div>
+      <h3>Probabilités</h3>
+      <p>Loi binomiale, loi normale, variables aléatoires</p>
+    </div>
+    <div class="home-card" onclick="showSection('geometrie')">
+      <div class="icon">📦</div>
+      <h3>Géométrie dans l'espace</h3>
+      <p>Vecteurs, droites, plans, produit scalaire</p>
+    </div>
+    <div class="home-card" onclick="showSection('formules')">
+      <div class="icon">📋</div>
+      <h3>Mémo Formules</h3>
+      <p>Toutes les formules à connaître par cœur</p>
+    </div>
+    <div class="home-card" onclick="showSection('qcm')">
+      <div class="icon">🎯</div>
+      <h3>Grand QCM Bac</h3>
+      <p>30 questions couvrant tout le programme</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SUITES ===== -->
+<div id="suites" class="section">
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="showSubTab('suites','cours')">📖 Cours</button>
+    <button class="sub-tab" onclick="showSubTab('suites','ex')">✏️ Exercices</button>
+    <button class="sub-tab" onclick="showSubTab('suites','qcm-s')">🎯 QCM</button>
+  </div>
+
+  <div id="suites-cours" class="sub-content">
+    <div class="fiche">
+      <div class="fiche-title">📈 Suites numériques</div>
+      
+      <h3>1. Suite arithmétique</h3>
+      <p>Une suite (uₙ) est arithmétique s'il existe une raison <em>r</em> telle que :</p>
+      <div class="formula-box">
+        <div class="label">Terme général</div>
+        uₙ = u₀ + n·r    ou    uₙ = u_p + (n−p)·r
+      </div>
+      <div class="formula-box">
+        <div class="label">Somme des termes</div>
+        S = (nombre de termes) × (premier + dernier) / 2
+      </div>
+      <div class="important-box">La raison r = uₙ₊₁ − uₙ est CONSTANTE. Si r > 0 → croissante ; r < 0 → décroissante.</div>
+
+      <h3>2. Suite géométrique</h3>
+      <p>Une suite (uₙ) est géométrique s'il existe une raison <em>q ≠ 0</em> telle que :</p>
+      <div class="formula-box">
+        <div class="label">Terme général</div>
+        uₙ = u₀ × qⁿ    ou    uₙ = u_p × qⁿ⁻ᵖ
+      </div>
+      <div class="formula-box">
+        <div class="label">Somme des termes (q ≠ 1)</div>
+        S = u₀ × (1 − qⁿ⁺¹) / (1 − q)    =    u₀ × (qⁿ⁺¹ − 1) / (q − 1)
+      </div>
+      <div class="important-box">Si |q| &lt; 1 → la suite tend vers 0. Si q > 1 → tend vers +∞. Si q = 1 → constante.</div>
+
+      <h3>3. Suites récurrentes uₙ₊₁ = f(uₙ)</h3>
+      <p>Pour étudier la convergence :</p>
+      <ul>
+        <li>Chercher les points fixes : résoudre f(x) = x</li>
+        <li>Étudier la monotonie pour montrer que la suite est bornée et monotone</li>
+        <li>Si convergente vers ℓ alors ℓ est un point fixe : ℓ = f(ℓ)</li>
+        <li>Utiliser une suite auxiliaire (vₙ = uₙ − ℓ) pour se ramener à une suite géométrique</li>
+      </ul>
+      <div class="tip-box">Pour une suite du type uₙ₊₁ = a·uₙ + b, la limite est le point fixe ℓ = b/(1−a), et vₙ = uₙ − ℓ est géométrique de raison a.</div>
+
+      <h3>4. Limites de suites classiques</h3>
+      <div class="formula-box">
+        <div class="label">À connaître par cœur</div>
+        lim qⁿ = 0  si |q| &lt; 1
+        lim qⁿ = +∞  si q > 1
+        lim n^α = +∞  pour tout α > 0
+        lim (1 + 1/n)ⁿ = e  (nombre d'Euler)
+      </div>
+      <div class="important-box">Croissances comparées : ln(n) ≪ n^α ≪ qⁿ ≪ n! quand n → +∞</div>
+    </div>
+  </div>
+
+  <div id="suites-ex" class="sub-content" style="display:none">
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 1 — Terme général</div>
+        <span class="level-badge level-1">Facile ⭐</span>
+      </div>
+      <div class="ex-text">
+        Soit la suite arithmétique de premier terme u₁ = 3 et de raison r = 5.<br>
+        Calculer u₂₀.
+      </div>
+      <input class="ex-input" id="s-ex1" placeholder="Votre réponse (nombre)..." type="number">
+      <button class="btn" onclick="checkEx('s-ex1', '98', 's-fb1', 's-sol1')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('s-sol1')">Voir la solution</button>
+      <div class="ex-feedback" id="s-fb1"></div>
+      <div class="solution-box" id="s-sol1">
+        uₙ = u₁ + (n−1)·r<br>
+        u₂₀ = 3 + (20−1) × 5 = 3 + 95 = <strong>98</strong>
+      </div>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 2 — Suite géométrique</div>
+        <span class="level-badge level-1">Facile ⭐</span>
+      </div>
+      <div class="ex-text">
+        Soit la suite géométrique de premier terme u₀ = 2 et de raison q = 3.<br>
+        Calculer u₅.
+      </div>
+      <input class="ex-input" id="s-ex2" placeholder="Votre réponse..." type="number">
+      <button class="btn" onclick="checkEx('s-ex2', '486', 's-fb2', 's-sol2')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('s-sol2')">Voir la solution</button>
+      <div class="ex-feedback" id="s-fb2"></div>
+      <div class="solution-box" id="s-sol2">
+        uₙ = u₀ × qⁿ<br>
+        u₅ = 2 × 3⁵ = 2 × 243 = <strong>486</strong>
+      </div>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 3 — Somme arithmétique</div>
+        <span class="level-badge level-2">Intermédiaire ⭐⭐</span>
+      </div>
+      <div class="ex-text">
+        Calculer S = 1 + 2 + 3 + ... + 100.
+      </div>
+      <input class="ex-input" id="s-ex3" placeholder="Votre réponse..." type="number">
+      <button class="btn" onclick="checkEx('s-ex3', '5050', 's-fb3', 's-sol3')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('s-sol3')">Voir la solution</button>
+      <div class="ex-feedback" id="s-fb3"></div>
+      <div class="solution-box" id="s-sol3">
+        Suite arithmétique : u₁ = 1, uₙ = n, r = 1, 100 termes<br>
+        S = 100 × (1 + 100)/2 = 100 × 101/2 = <strong>5050</strong>
+      </div>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 4 — Suite récurrente</div>
+        <span class="level-badge level-3">Difficile ⭐⭐⭐</span>
+      </div>
+      <div class="ex-text">
+        Soit la suite définie par u₀ = 1 et uₙ₊₁ = (1/2)uₙ + 3.<br>
+        Trouver la limite de cette suite si elle converge. (entier)
+      </div>
+      <input class="ex-input" id="s-ex4" placeholder="La limite est ?" type="number">
+      <button class="btn" onclick="checkEx('s-ex4', '6', 's-fb4', 's-sol4')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('s-sol4')">Voir la solution</button>
+      <div class="ex-feedback" id="s-fb4"></div>
+      <div class="solution-box" id="s-sol4">
+        Point fixe : ℓ = (1/2)ℓ + 3 → ℓ/2 = 3 → ℓ = <strong>6</strong><br>
+        On pose vₙ = uₙ − 6. Alors vₙ₊₁ = uₙ₊₁ − 6 = (1/2)uₙ + 3 − 6 = (1/2)(uₙ − 6) = (1/2)vₙ.<br>
+        Donc vₙ est géométrique de raison 1/2 → vₙ → 0 donc uₙ → 6.
+      </div>
+    </div>
+  </div>
+
+  <div id="suites-qcm-s" class="sub-content" style="display:none">
+    <div id="score-suites" class="score-bar" style="display:none">
+      <div><div class="score-num" id="score-suites-val">0</div><div class="score-label">/ points</div></div>
+      <div class="score-track"><div class="score-fill" id="score-suites-bar" style="width:0%"></div></div>
+    </div>
+
+    <div class="qcm-card">
+      <div class="qcm-question">1. Si (uₙ) est arithmétique avec u₀ = 4 et r = −2, que vaut u₁₀ ?</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s1')"><span class="letter">A</span>−24</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-s1')"><span class="letter">B</span>−16</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s1')"><span class="letter">C</span>24</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s1')"><span class="letter">D</span>−20</button>
+      </div>
+      <div class="qcm-feedback" id="q-s1"></div>
+    </div>
+
+    <div class="qcm-card">
+      <div class="qcm-question">2. La suite géométrique de raison q = 1/3 et u₀ = 81. Que vaut u₄ ?</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s2')"><span class="letter">A</span>3</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-s2')"><span class="letter">B</span>1</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s2')"><span class="letter">C</span>9</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s2')"><span class="letter">D</span>27</button>
+      </div>
+      <div class="qcm-feedback" id="q-s2"></div>
+    </div>
+
+    <div class="qcm-card">
+      <div class="qcm-question">3. La suite définie par uₙ = 2ⁿ/n! tend vers :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-s3')"><span class="letter">A</span>0</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s3')"><span class="letter">B</span>+∞</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s3')"><span class="letter">C</span>2</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s3')"><span class="letter">D</span>e²</button>
+      </div>
+      <div class="qcm-feedback" id="q-s3"></div>
+    </div>
+
+    <div class="qcm-card">
+      <div class="qcm-question">4. Parmi les propositions, laquelle est VRAIE pour une suite géométrique de raison q = −1/2 ?</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s4')"><span class="letter">A</span>La suite diverge vers −∞</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s4')"><span class="letter">B</span>La suite est croissante</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-s4')"><span class="letter">C</span>La suite converge vers 0</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-s4')"><span class="letter">D</span>La suite est constante</button>
+      </div>
+      <div class="qcm-feedback" id="q-s4"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FONCTIONS ===== -->
+<div id="fonctions" class="section">
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="showSubTab('fonctions','cours')">📖 Cours</button>
+    <button class="sub-tab" onclick="showSubTab('fonctions','ex')">✏️ Exercices</button>
+    <button class="sub-tab" onclick="showSubTab('fonctions','qcm-f')">🎯 QCM</button>
+  </div>
+
+  <div id="fonctions-cours" class="sub-content">
+    <div class="fiche">
+      <div class="fiche-title">📐 Fonction logarithme & exponentielle</div>
+
+      <h3>1. Fonction exponentielle</h3>
+      <div class="formula-box">
+        <div class="label">Propriétés fondamentales</div>
+        exp(a+b) = exp(a)·exp(b)
+        exp(a−b) = exp(a)/exp(b)
+        exp(n·a) = [exp(a)]ⁿ
+        (eˣ)' = eˣ
+        (e^(f(x)))' = f'(x)·e^(f(x))
+      </div>
+      <div class="important-box">eˣ > 0 pour tout x ∈ ℝ. La fonction exp est strictement croissante sur ℝ.</div>
+
+      <h3>2. Fonction logarithme népérien</h3>
+      <div class="formula-box">
+        <div class="label">Propriétés</div>
+        ln(a·b) = ln(a) + ln(b)
+        ln(a/b) = ln(a) − ln(b)
+        ln(aⁿ) = n·ln(a)
+        ln(1) = 0 ,  ln(e) = 1
+        (ln x)' = 1/x  sur ]0,+∞[
+        (ln(f(x)))' = f'(x)/f(x)
+      </div>
+      <div class="tip-box">ln et exp sont réciproques : ln(eˣ) = x et e^(ln x) = x pour x > 0.</div>
+
+      <h3>3. Croissances comparées (CRUCIAL pour le bac)</h3>
+      <div class="formula-box">
+        <div class="label">Quand x → +∞</div>
+        lim (ln x)/xⁿ = 0  pour tout n > 0
+        lim xⁿ/eˣ = 0  pour tout n > 0
+        lim eˣ = +∞   et  lim e^(−x) = 0
+      </div>
+      <div class="formula-box">
+        <div class="label">Quand x → 0⁺</div>
+        lim x·ln(x) = 0
+        lim ln(x) = −∞
+      </div>
+
+      <h3>4. Convexité</h3>
+      <ul>
+        <li>f est convexe sur I si f'' ≥ 0 sur I (courbe au-dessus des tangentes)</li>
+        <li>f est concave sur I si f'' ≤ 0 sur I (courbe en-dessous des tangentes)</li>
+        <li>Point d'inflexion : f'' change de signe</li>
+      </ul>
+      <div class="important-box">eˣ est convexe sur ℝ (exp'' = eˣ > 0). ln est concave sur ]0,+∞[ (ln'' = −1/x² &lt; 0).</div>
+
+      <h3>5. Équations différentielles</h3>
+      <div class="formula-box">
+        <div class="label">y' = ay  →  solutions</div>
+        y = C·eᵃˣ   (C ∈ ℝ quelconque)
+      </div>
+      <div class="formula-box">
+        <div class="label">y' = ay + b  →  solutions</div>
+        y = (y₀ + b/a)eᵃˣ − b/a   (solution particulière yₚ = −b/a)
+      </div>
+    </div>
+  </div>
+
+  <div id="fonctions-ex" class="sub-content" style="display:none">
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 1 — Dérivée de ln</div>
+        <span class="level-badge level-1">Facile ⭐</span>
+      </div>
+      <div class="ex-text">
+        Soit f(x) = ln(3x² + 1). Calculer f'(x).<br>
+        <em>Répondez sous la forme : 6x/(3x²+1)</em>
+      </div>
+      <input class="ex-input" id="f-ex1" placeholder="f'(x) = ...">
+      <button class="btn" onclick="checkExText('f-ex1', ['6x/(3x²+1)','6x/(3x^2+1)'], 'f-fb1', 'f-sol1')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('f-sol1')">Voir la solution</button>
+      <div class="ex-feedback" id="f-fb1"></div>
+      <div class="solution-box" id="f-sol1">
+        f(x) = ln(u) avec u = 3x² + 1<br>
+        u' = 6x<br>
+        f'(x) = u'/u = <strong>6x/(3x²+1)</strong>
+      </div>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 2 — Équation différentielle</div>
+        <span class="level-badge level-2">Intermédiaire ⭐⭐</span>
+      </div>
+      <div class="ex-text">
+        Résoudre y' = 2y avec y(0) = 5.<br>
+        Quel est le coefficient devant e^(2x) dans la solution ?
+      </div>
+      <input class="ex-input" id="f-ex2" placeholder="Coefficient = ?" type="number">
+      <button class="btn" onclick="checkEx('f-ex2', '5', 'f-fb2', 'f-sol2')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('f-sol2')">Voir la solution</button>
+      <div class="ex-feedback" id="f-fb2"></div>
+      <div class="solution-box" id="f-sol2">
+        Solution générale : y = C·e^(2x)<br>
+        Condition initiale : y(0) = C·e⁰ = C = 5<br>
+        Donc y = <strong>5</strong>·e^(2x)
+      </div>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 3 — Croissances comparées</div>
+        <span class="level-badge level-2">Intermédiaire ⭐⭐</span>
+      </div>
+      <div class="ex-text">
+        Calculer : lim(x→+∞) x³/eˣ. Entrez 0 si la limite est 0, +∞ si elle est +∞.
+      </div>
+      <input class="ex-input" id="f-ex3" placeholder="0 ou infini ?" type="number">
+      <button class="btn" onclick="checkEx('f-ex3', '0', 'f-fb3', 'f-sol3')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('f-sol3')">Voir la solution</button>
+      <div class="ex-feedback" id="f-fb3"></div>
+      <div class="solution-box" id="f-sol3">
+        Par croissances comparées : xⁿ/eˣ → <strong>0</strong> pour tout n ≥ 0.<br>
+        L'exponentielle croît plus vite que tout polynôme.
+      </div>
+    </div>
+  </div>
+
+  <div id="fonctions-qcm-f" class="sub-content" style="display:none">
+    <div class="qcm-card">
+      <div class="qcm-question">1. La dérivée de f(x) = e^(2x+1) est :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-f1')"><span class="letter">A</span>e^(2x+1)</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-f1')"><span class="letter">B</span>2·e^(2x+1)</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-f1')"><span class="letter">C</span>(2x+1)·e^(2x)</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-f1')"><span class="letter">D</span>2·e^(2x)</button>
+      </div>
+      <div class="qcm-feedback" id="q-f1"></div>
+    </div>
+
+    <div class="qcm-card">
+      <div class="qcm-question">2. ln(e³) est égal à :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-f2')"><span class="letter">A</span>e</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-f2')"><span class="letter">B</span>3</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-f2')"><span class="letter">C</span>3e</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-f2')"><span class="letter">D</span>e³</button>
+      </div>
+      <div class="qcm-feedback" id="q-f2"></div>
+    </div>
+
+    <div class="qcm-card">
+      <div class="qcm-question">3. La fonction f(x) = eˣ est convexe car :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-f3')"><span class="letter">A</span>f'(x) > 0</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-f3')"><span class="letter">B</span>f''(x) = eˣ > 0</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-f3')"><span class="letter">C</span>f est croissante</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-f3')"><span class="letter">D</span>f(0) = 1</button>
+      </div>
+      <div class="qcm-feedback" id="q-f3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LIMITES ===== -->
+<div id="limites" class="section">
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="showSubTab('limites','cours')">📖 Cours</button>
+    <button class="sub-tab" onclick="showSubTab('limites','ex')">✏️ Exercices</button>
+    <button class="sub-tab" onclick="showSubTab('limites','qcm-l')">🎯 QCM</button>
+  </div>
+
+  <div id="limites-cours" class="sub-content">
+    <div class="fiche">
+      <div class="fiche-title">∞ Limites de fonctions</div>
+
+      <h3>1. Formes indéterminées (FI)</h3>
+      <div class="formula-box">
+        <div class="label">Formes indéterminées à lever</div>
+        ∞ − ∞  |  0 × ∞  |  ∞/∞  |  0/0  |  1^∞  |  0⁰  |  ∞⁰
+      </div>
+      <div class="tip-box">Pour ∞/∞ avec polynômes : factoriser par le terme de plus haut degré. Pour 0/0 : factoriser ou utiliser la dérivée (règle de l'Hospital).</div>
+
+      <h3>2. Opérations sur les limites</h3>
+      <div class="formula-box">
+        <div class="label">Règles</div>
+        lim[f+g] = lim f + lim g  (sauf FI ∞−∞)
+        lim[f×g] = lim f × lim g  (sauf FI 0×∞)
+        lim[f/g] = lim f / lim g  (sauf FI 0/0 ou ∞/∞)
+      </div>
+      <div class="important-box">+∞ + (−∞) est une forme INDÉTERMINÉE. Il faut toujours lever les FI !</div>
+
+      <h3>3. Théorème des gendarmes</h3>
+      <p>Si g(x) ≤ f(x) ≤ h(x) au voisinage de a et lim g = lim h = L, alors lim f = L.</p>
+      <div class="tip-box">Très utile pour les fonctions oscillantes (sin, cos) : −1 ≤ sin(x) ≤ 1 donc |sin(x)/x| ≤ 1/|x| → 0.</div>
+
+      <h3>4. Continuité et TVI</h3>
+      <ul>
+        <li>f continue sur [a,b] et f(a) et f(b) sont de signes opposés → f s'annule au moins une fois sur ]a,b[</li>
+        <li>Si de plus f est strictement monotone → il existe un UNIQUE c ∈ ]a,b[ tel que f(c) = 0</li>
+      </ul>
+      <div class="important-box">TVI = Théorème des Valeurs Intermédiaires. Toujours vérifier : continuité + valeurs encadrant 0.</div>
+
+      <h3>5. Limites usuelles à connaître</h3>
+      <div class="formula-box">
+        <div class="label">Au voisinage de 0</div>
+        lim(x→0) sin(x)/x = 1
+        lim(x→0) (eˣ−1)/x = 1
+        lim(x→0) ln(1+x)/x = 1
+      </div>
+    </div>
+  </div>
+
+  <div id="limites-ex" class="sub-content" style="display:none">
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 1 — Limite polynomiale</div>
+        <span class="level-badge level-1">Facile ⭐</span>
+      </div>
+      <div class="ex-text">
+        Calculer lim(x→+∞) (3x³ − 2x + 1)/(x³ + 5). Le résultat est un entier.
+      </div>
+      <input class="ex-input" id="l-ex1" placeholder="Limite = ?" type="number">
+      <button class="btn" onclick="checkEx('l-ex1', '3', 'l-fb1', 'l-sol1')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('l-sol1')">Voir la solution</button>
+      <div class="ex-feedback" id="l-fb1"></div>
+      <div class="solution-box" id="l-sol1">
+        Forme ∞/∞ → factoriser par x³ :<br>
+        = x³(3 − 2/x² + 1/x³) / x³(1 + 5/x³)<br>
+        = (3 − 0 + 0)/(1 + 0) = <strong>3</strong>
+      </div>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 2 — TVI</div>
+        <span class="level-badge level-2">Intermédiaire ⭐⭐</span>
+      </div>
+      <div class="ex-text">
+        Soit f(x) = x³ − 2x − 5. On sait que f(2) = −1 et f(3) = 16.<br>
+        Combien de solutions l'équation f(x) = 0 possède-t-elle sur [2,3] ? (1 ou plusieurs ?)
+      </div>
+      <input class="ex-input" id="l-ex2" placeholder="Nombre de solutions..." type="number">
+      <button class="btn" onclick="checkEx('l-ex2', '1', 'l-fb2', 'l-sol2')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('l-sol2')">Voir la solution</button>
+      <div class="ex-feedback" id="l-fb2"></div>
+      <div class="solution-box" id="l-sol2">
+        f est continue (polynôme) et f(2) = −1 &lt; 0, f(3) = 16 > 0.<br>
+        Par le TVI : f s'annule au moins une fois sur ]2,3[.<br>
+        f'(x) = 3x²−2 > 0 sur [2,3] → f est strictement croissante → <strong>une unique solution</strong>.
+      </div>
+    </div>
+  </div>
+
+  <div id="limites-qcm-l" class="sub-content" style="display:none">
+    <div class="qcm-card">
+      <div class="qcm-question">1. lim(x→+∞) (5x² + 3x)/(2x² − 1) =</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-l1')"><span class="letter">A</span>3</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-l1')"><span class="letter">B</span>+∞</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-l1')"><span class="letter">C</span>5/2</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-l1')"><span class="letter">D</span>0</button>
+      </div>
+      <div class="qcm-feedback" id="q-l1"></div>
+    </div>
+
+    <div class="qcm-card">
+      <div class="qcm-question">2. L'expression ∞ − ∞ est :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-l2')"><span class="letter">A</span>Toujours nulle</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-l2')"><span class="letter">B</span>Une forme indéterminée</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-l2')"><span class="letter">C</span>Toujours infinie</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-l2')"><span class="letter">D</span>Non définie car ∞ ∉ ℝ</button>
+      </div>
+      <div class="qcm-feedback" id="q-l2"></div>
+    </div>
+
+    <div class="qcm-card">
+      <div class="qcm-question">3. lim(x→0) sin(x)/x =</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-l3')"><span class="letter">A</span>0</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-l3')"><span class="letter">B</span>1</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-l3')"><span class="letter">C</span>+∞</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-l3')"><span class="letter">D</span>Non définie</button>
+      </div>
+      <div class="qcm-feedback" id="q-l3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== INTÉGRALES ===== -->
+<div id="integrales" class="section">
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="showSubTab('integrales','cours')">📖 Cours</button>
+    <button class="sub-tab" onclick="showSubTab('integrales','ex')">✏️ Exercices</button>
+    <button class="sub-tab" onclick="showSubTab('integrales','qcm-i')">🎯 QCM</button>
+  </div>
+
+  <div id="integrales-cours" class="sub-content">
+    <div class="fiche">
+      <div class="fiche-title">∫ Primitives & Intégrales</div>
+
+      <h3>1. Primitives usuelles</h3>
+      <table>
+        <tr><th>f(x)</th><th>F(x) (primitive)</th></tr>
+        <tr><td>xⁿ (n ≠ −1)</td><td>xⁿ⁺¹/(n+1)</td></tr>
+        <tr><td>1/x</td><td>ln|x|</td></tr>
+        <tr><td>eˣ</td><td>eˣ</td></tr>
+        <tr><td>eᵃˣ</td><td>eᵃˣ/a</td></tr>
+        <tr><td>sin(x)</td><td>−cos(x)</td></tr>
+        <tr><td>cos(x)</td><td>sin(x)</td></tr>
+        <tr><td>1/√x</td><td>2√x</td></tr>
+        <tr><td>f'(x)/f(x)</td><td>ln|f(x)|</td></tr>
+        <tr><td>f'(x)·e^(f(x))</td><td>e^(f(x))</td></tr>
+      </table>
+
+      <h3>2. Calcul d'intégrale</h3>
+      <div class="formula-box">
+        <div class="label">Définition</div>
+        ∫[a,b] f(x)dx = [F(x)]ᵃᵇ = F(b) − F(a)
+      </div>
+      <div class="important-box">L'intégrale représente l'aire algébrique entre la courbe et l'axe des abscisses.</div>
+      <div class="formula-box">
+        <div class="label">Propriétés</div>
+        ∫[a,b] [f+g] = ∫f + ∫g
+        ∫[a,b] λ·f = λ·∫[a,b] f
+        ∫[a,b] f = −∫[b,a] f
+        ∫[a,a] f = 0
+      </div>
+
+      <h3>3. Intégration par parties (IPP)</h3>
+      <div class="formula-box">
+        <div class="label">Formule IPP</div>
+        ∫[a,b] u·v' = [u·v]ᵃᵇ − ∫[a,b] u'·v
+      </div>
+      <div class="tip-box">Choix de u et v' : u doit se simplifier en dérivant, v' doit être facile à intégrer. Ordre LIATE : Logarithme, Inverse, Algébrique, Trigono, Exponentielle → u est l'élément le plus à gauche.</div>
+
+      <h3>4. Valeur moyenne</h3>
+      <div class="formula-box">
+        <div class="label">Valeur moyenne de f sur [a,b]</div>
+        μ = 1/(b−a) × ∫[a,b] f(x)dx
+      </div>
+
+      <h3>5. Aire entre deux courbes</h3>
+      <div class="formula-box">
+        <div class="label">Si f(x) ≥ g(x) sur [a,b]</div>
+        Aire = ∫[a,b] [f(x) − g(x)] dx
+      </div>
+    </div>
+  </div>
+
+  <div id="integrales-ex" class="sub-content" style="display:none">
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 1 — Primitive</div>
+        <span class="level-badge level-1">Facile ⭐</span>
+      </div>
+      <div class="ex-text">
+        Calculer ∫[0,1] eˣ dx. (Entrer la valeur exacte. e ≈ 2.718, arrondir à 4 décimales si besoin — entrer e−1 ≈ 1.7183)
+      </div>
+      <input class="ex-input" id="i-ex1" placeholder="Valeur numérique..." type="number" step="0.0001">
+      <button class="btn" onclick="checkExApprox('i-ex1', 1.7183, 0.01, 'i-fb1', 'i-sol1')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('i-sol1')">Voir la solution</button>
+      <div class="ex-feedback" id="i-fb1"></div>
+      <div class="solution-box" id="i-sol1">
+        ∫[0,1] eˣ dx = [eˣ]₀¹ = e¹ − e⁰ = e − 1 ≈ <strong>1.7183</strong>
+      </div>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 2 — Intégrale polynomiale</div>
+        <span class="level-badge level-1">Facile ⭐</span>
+      </div>
+      <div class="ex-text">
+        Calculer ∫[1,3] (2x + 1) dx.
+      </div>
+      <input class="ex-input" id="i-ex2" placeholder="Résultat entier..." type="number">
+      <button class="btn" onclick="checkEx('i-ex2', '12', 'i-fb2', 'i-sol2')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('i-sol2')">Voir la solution</button>
+      <div class="ex-feedback" id="i-fb2"></div>
+      <div class="solution-box" id="i-sol2">
+        ∫[1,3] (2x+1)dx = [x²+x]₁³ = (9+3) − (1+1) = 12 − 2 = <strong>12</strong>
+      </div>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 3 — IPP</div>
+        <span class="level-badge level-3">Difficile ⭐⭐⭐</span>
+      </div>
+      <div class="ex-text">
+        Calculer ∫[0,1] x·eˣ dx. (entrer la valeur exacte : 1 seul chiffre)
+      </div>
+      <input class="ex-input" id="i-ex3" placeholder="Résultat = ?" type="number">
+      <button class="btn" onclick="checkEx('i-ex3', '1', 'i-fb3', 'i-sol3')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('i-sol3')">Voir la solution</button>
+      <div class="ex-feedback" id="i-fb3"></div>
+      <div class="solution-box" id="i-sol3">
+        IPP : u = x, v' = eˣ → u' = 1, v = eˣ<br>
+        ∫[0,1] x·eˣ = [x·eˣ]₀¹ − ∫[0,1] eˣ<br>
+        = (1·e − 0) − [eˣ]₀¹<br>
+        = e − (e − 1) = e − e + 1 = <strong>1</strong>
+      </div>
+    </div>
+  </div>
+
+  <div id="integrales-qcm-i" class="sub-content" style="display:none">
+    <div class="qcm-card">
+      <div class="qcm-question">1. Une primitive de f(x) = 3x² est :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-i1')"><span class="letter">A</span>6x</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-i1')"><span class="letter">B</span>x³</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-i1')"><span class="letter">C</span>x³ + 3x</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-i1')"><span class="letter">D</span>3x³</button>
+      </div>
+      <div class="qcm-feedback" id="q-i1"></div>
+    </div>
+    <div class="qcm-card">
+      <div class="qcm-question">2. ∫[0,π] cos(x) dx =</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-i2')"><span class="letter">A</span>0</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-i2')"><span class="letter">B</span>2</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-i2')"><span class="letter">C</span>−2</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-i2')"><span class="letter">D</span>1</button>
+      </div>
+      <div class="qcm-feedback" id="q-i2"></div>
+    </div>
+    <div class="qcm-card">
+      <div class="qcm-question">3. La valeur moyenne de f(x) = 2x sur [0,4] est :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-i3')"><span class="letter">A</span>8</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-i3')"><span class="letter">B</span>16</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-i3')"><span class="letter">C</span>4</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-i3')"><span class="letter">D</span>2</button>
+      </div>
+      <div class="qcm-feedback" id="q-i3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PROBABILITÉS ===== -->
+<div id="proba" class="section">
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="showSubTab('proba','cours')">📖 Cours</button>
+    <button class="sub-tab" onclick="showSubTab('proba','ex')">✏️ Exercices</button>
+    <button class="sub-tab" onclick="showSubTab('proba','qcm-p')">🎯 QCM</button>
+  </div>
+
+  <div id="proba-cours" class="sub-content">
+    <div class="fiche">
+      <div class="fiche-title">🎲 Probabilités</div>
+
+      <h3>1. Loi binomiale B(n, p)</h3>
+      <p>X suit une loi binomiale B(n,p) si X = nombre de succès en n épreuves indépendantes de Bernoulli de probabilité p.</p>
+      <div class="formula-box">
+        <div class="label">Probabilité</div>
+        P(X = k) = C(n,k) × pᵏ × (1−p)^(n−k)
+      </div>
+      <div class="formula-box">
+        <div class="label">Espérance et variance</div>
+        E(X) = n·p
+        V(X) = n·p·(1−p)
+        σ(X) = √(n·p·(1−p))
+      </div>
+      <div class="important-box">C(n,k) = n! / (k!(n−k)!) — coefficient binomial "k parmi n".</div>
+
+      <h3>2. Loi normale N(μ, σ²)</h3>
+      <div class="formula-box">
+        <div class="label">Propriétés</div>
+        E(X) = μ  ,  σ(X) = σ
+        P(μ−σ ≤ X ≤ μ+σ) ≈ 0.683
+        P(μ−2σ ≤ X ≤ μ+2σ) ≈ 0.954
+        P(μ−3σ ≤ X ≤ μ+3σ) ≈ 0.997
+      </div>
+      <div class="tip-box">Loi normale centrée réduite N(0,1) : X standardisé → Z = (X−μ)/σ. On lit les valeurs dans la table.</div>
+
+      <h3>3. Approximation de la loi binomiale</h3>
+      <ul>
+        <li>Si n ≥ 30, np ≥ 5 et n(1−p) ≥ 5 → approximation par N(np, np(1−p))</li>
+        <li>Si n grand et p petit (np &lt; 5) → approximation par la loi de Poisson</li>
+      </ul>
+
+      <h3>4. Intervalle de fluctuation</h3>
+      <div class="formula-box">
+        <div class="label">Au seuil 95% pour fréquence f = X/n</div>
+        I_f = [p − 1/√n , p + 1/√n]
+      </div>
+      <div class="important-box">Si la fréquence observée est hors de l'intervalle → on remet en cause l'hypothèse sur p.</div>
+
+      <h3>5. Espérance d'une variable aléatoire discrète</h3>
+      <div class="formula-box">
+        <div class="label">Définition</div>
+        E(X) = Σ xᵢ · P(X = xᵢ)
+        V(X) = E(X²) − [E(X)]²
+      </div>
+    </div>
+  </div>
+
+  <div id="proba-ex" class="sub-content" style="display:none">
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 1 — Espérance binomiale</div>
+        <span class="level-badge level-1">Facile ⭐</span>
+      </div>
+      <div class="ex-text">
+        X suit une loi B(20, 0.4). Calculer E(X).
+      </div>
+      <input class="ex-input" id="p-ex1" placeholder="E(X) = ?" type="number" step="0.1">
+      <button class="btn" onclick="checkEx('p-ex1', '8', 'p-fb1', 'p-sol1')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('p-sol1')">Voir la solution</button>
+      <div class="ex-feedback" id="p-fb1"></div>
+      <div class="solution-box" id="p-sol1">
+        E(X) = n·p = 20 × 0.4 = <strong>8</strong>
+      </div>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-header">
+        <div class="ex-title">Exercice 2 — Probabilité binomiale</div>
+        <span class="level-badge level-2">Intermédiaire ⭐⭐</span>
+      </div>
+      <div class="ex-text">
+        On lance 3 fois une pièce équilibrée. Quelle est la probabilité d'obtenir exactement 2 piles ? (arrondir à 4 décimales)
+      </div>
+      <input class="ex-input" id="p-ex2" placeholder="P(X=2) = ?" type="number" step="0.0001">
+      <button class="btn" onclick="checkExApprox('p-ex2', 0.375, 0.01, 'p-fb2', 'p-sol2')">Vérifier</button>
+      <button class="show-solution-btn" onclick="toggleSolution('p-sol2')">Voir la solution</button>
+      <div class="ex-feedback" id="p-fb2"></div>
+      <div class="solution-box" id="p-sol2">
+        X ~ B(3, 0.5)<br>
+        P(X=2) = C(3,2) × (0.5)² × (0.5)¹<br>
+        = 3 × 0.25 × 0.5 = <strong>0.375</strong>
+      </div>
+    </div>
+  </div>
+
+  <div id="proba-qcm-p" class="sub-content" style="display:none">
+    <div class="qcm-card">
+      <div class="qcm-question">1. Si X ~ B(10, 0.3), alors V(X) =</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-p1')"><span class="letter">A</span>3</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-p1')"><span class="letter">B</span>2.1</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-p1')"><span class="letter">C</span>0.3</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-p1')"><span class="letter">D</span>7</button>
+      </div>
+      <div class="qcm-feedback" id="q-p1"></div>
+    </div>
+    <div class="qcm-card">
+      <div class="qcm-question">2. Pour la loi normale N(μ, σ²), la probabilité P(μ−2σ ≤ X ≤ μ+2σ) est environ :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-p2')"><span class="letter">A</span>68.3%</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-p2')"><span class="letter">B</span>95.4%</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-p2')"><span class="letter">C</span>99.7%</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-p2')"><span class="letter">D</span>50%</button>
+      </div>
+      <div class="qcm-feedback" id="q-p2"></div>
+    </div>
+    <div class="qcm-card">
+      <div class="qcm-question">3. C(5,2) est égal à :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-p3')"><span class="letter">A</span>20</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-p3')"><span class="letter">B</span>10</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-p3')"><span class="letter">C</span>25</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-p3')"><span class="letter">D</span>5</button>
+      </div>
+      <div class="qcm-feedback" id="q-p3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== GÉOMÉTRIE ===== -->
+<div id="geometrie" class="section">
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="showSubTab('geometrie','cours')">📖 Cours</button>
+    <button class="sub-tab" onclick="showSubTab('geometrie','qcm-g')">🎯 QCM</button>
+  </div>
+
+  <div id="geometrie-cours" class="sub-content">
+    <div class="fiche">
+      <div class="fiche-title">📦 Géométrie dans l'espace</div>
+
+      <h3>1. Vecteurs de l'espace</h3>
+      <div class="formula-box">
+        <div class="label">Coordonnées — opérations</div>
+        u⃗ = (x,y,z)  ,  v⃗ = (x',y',z')
+        u⃗ + v⃗ = (x+x', y+y', z+z')
+        λu⃗ = (λx, λy, λz)
+        ‖u⃗‖ = √(x²+y²+z²)
+      </div>
+
+      <h3>2. Produit scalaire dans l'espace</h3>
+      <div class="formula-box">
+        <div class="label">Formules</div>
+        u⃗·v⃗ = xx' + yy' + zz'
+        u⃗·v⃗ = ‖u⃗‖·‖v⃗‖·cos(θ)
+        u⃗ ⊥ v⃗  ⟺  u⃗·v⃗ = 0
+      </div>
+
+      <h3>3. Équation d'un plan</h3>
+      <div class="formula-box">
+        <div class="label">Plan de vecteur normal n⃗=(a,b,c) passant par A(x₀,y₀,z₀)</div>
+        ax + by + cz + d = 0
+        avec  d = −(ax₀ + by₀ + cz₀)
+      </div>
+      <div class="tip-box">Le vecteur normal au plan ax+by+cz+d=0 est n⃗ = (a,b,c). Deux plans sont parallèles si leurs normales sont colinéaires.</div>
+
+      <h3>4. Équation d'une droite</h3>
+      <div class="formula-box">
+        <div class="label">Représentation paramétrique — droite passant par A(x₀,y₀,z₀) de vecteur directeur u⃗=(l,m,n)</div>
+        x = x₀ + tl
+        y = y₀ + tm
+        z = z₀ + tn   (t ∈ ℝ)
+      </div>
+
+      <h3>5. Distance d'un point à un plan</h3>
+      <div class="formula-box">
+        <div class="label">Distance de M(x₀,y₀,z₀) au plan ax+by+cz+d=0</div>
+        d = |ax₀+by₀+cz₀+d| / √(a²+b²+c²)
+      </div>
+
+      <h3>6. Positions relatives</h3>
+      <ul>
+        <li>Droite ∥ plan : vecteur directeur ⊥ normale du plan (produit scalaire = 0) ET point de la droite ∉ plan</li>
+        <li>Droite ⊂ plan : vecteur directeur ⊥ normale ET point ∈ plan</li>
+        <li>Droite ∩ plan : substituer la paramétrique dans l'équation du plan</li>
+      </ul>
+      <div class="important-box">Toujours vérifier avec UN point si la droite est dans le plan ou seulement parallèle !</div>
+    </div>
+  </div>
+
+  <div id="geometrie-qcm-g" class="sub-content" style="display:none">
+    <div class="qcm-card">
+      <div class="qcm-question">1. Le vecteur normal au plan 2x − y + 3z + 5 = 0 est :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-g1')"><span class="letter">A</span>(2,1,3)</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-g1')"><span class="letter">B</span>(2,−1,3)</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-g1')"><span class="letter">C</span>(−2,1,−3)</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-g1')"><span class="letter">D</span>(2,−1,5)</button>
+      </div>
+      <div class="qcm-feedback" id="q-g1"></div>
+    </div>
+    <div class="qcm-card">
+      <div class="qcm-question">2. u⃗ = (1,2,−1) et v⃗ = (2,−1,0). Le produit scalaire u⃗·v⃗ vaut :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-g2')"><span class="letter">A</span>0</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-g2')"><span class="letter">B</span>3</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-g2')"><span class="letter">C</span>−1</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-g2')"><span class="letter">D</span>5</button>
+      </div>
+      <div class="qcm-feedback" id="q-g2"></div>
+    </div>
+    <div class="qcm-card">
+      <div class="qcm-question">3. La norme du vecteur u⃗ = (3, 4, 0) est :</div>
+      <div class="qcm-options">
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-g3')"><span class="letter">A</span>7</button>
+        <button class="qcm-option" onclick="checkQCM(this,'correct','q-g3')"><span class="letter">B</span>5</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-g3')"><span class="letter">C</span>√7</button>
+        <button class="qcm-option" onclick="checkQCM(this,'wrong','q-g3')"><span class="letter">D</span>25</button>
+      </div>
+      <div class="qcm-feedback" id="q-g3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FORMULES ===== -->
+<div id="formules" class="section">
+  <div class="fiche-title" style="padding:0 0 1rem;">📋 Mémo — Toutes les formules</div>
+
+  <div class="accordion">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      📈 Suites <span class="accordion-arrow">▶</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+        <table>
+          <tr><th>Type</th><th>Terme général</th><th>Somme</th><th>E(X)</th></tr>
+          <tr><td>Arithmétique</td><td>u₀ + n·r</td><td>n(u₀+uₙ₋₁)/2</td><td>—</td></tr>
+          <tr><td>Géométrique</td><td>u₀·qⁿ</td><td>u₀(1−qⁿ)/(1−q)</td><td>—</td></tr>
+          <tr><td>B(n,p)</td><td>C(n,k)pᵏ(1−p)ⁿ⁻ᵏ</td><td>—</td><td>np</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      📐 Dérivées usuelles <span class="accordion-arrow">▶</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+        <table>
+          <tr><th>f(x)</th><th>f'(x)</th></tr>
+          <tr><td>xⁿ</td><td>n·xⁿ⁻¹</td></tr>
+          <tr><td>√x</td><td>1/(2√x)</td></tr>
+          <tr><td>1/x</td><td>−1/x²</td></tr>
+          <tr><td>eˣ</td><td>eˣ</td></tr>
+          <tr><td>ln(x)</td><td>1/x</td></tr>
+          <tr><td>sin(x)</td><td>cos(x)</td></tr>
+          <tr><td>cos(x)</td><td>−sin(x)</td></tr>
+          <tr><td>u+v</td><td>u'+v'</td></tr>
+          <tr><td>u·v</td><td>u'v+uv'</td></tr>
+          <tr><td>u/v</td><td>(u'v−uv')/v²</td></tr>
+          <tr><td>f(g(x))</td><td>g'(x)·f'(g(x))</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      ∫ Primitives usuelles <span class="accordion-arrow">▶</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+        <table>
+          <tr><th>f(x)</th><th>F(x)</th></tr>
+          <tr><td>xⁿ (n≠−1)</td><td>xⁿ⁺¹/(n+1)</td></tr>
+          <tr><td>1/x</td><td>ln|x|</td></tr>
+          <tr><td>eˣ</td><td>eˣ</td></tr>
+          <tr><td>sin(x)</td><td>−cos(x)</td></tr>
+          <tr><td>cos(x)</td><td>sin(x)</td></tr>
+          <tr><td>f'/f</td><td>ln|f|</td></tr>
+          <tr><td>f'·e^f</td><td>e^f</td></tr>
+          <tr><td>f'·fⁿ</td><td>fⁿ⁺¹/(n+1)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      📦 Géométrie dans l'espace <span class="accordion-arrow">▶</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+        <table>
+          <tr><th>Objet</th><th>Formule</th></tr>
+          <tr><td>Norme</td><td>‖u⃗‖ = √(x²+y²+z²)</td></tr>
+          <tr><td>Produit scalaire</td><td>u⃗·v⃗ = xx'+yy'+zz'</td></tr>
+          <tr><td>Orthogonalité</td><td>u⃗·v⃗ = 0</td></tr>
+          <tr><td>Équation plan</td><td>ax+by+cz+d=0</td></tr>
+          <tr><td>Distance point/plan</td><td>|ax₀+by₀+cz₀+d|/√(a²+b²+c²)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      🎲 Probabilités <span class="accordion-arrow">▶</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+        <table>
+          <tr><th>Formule</th><th>Valeur</th></tr>
+          <tr><td>E(aX+b)</td><td>aE(X)+b</td></tr>
+          <tr><td>V(aX+b)</td><td>a²V(X)</td></tr>
+          <tr><td>E binomiale</td><td>np</td></tr>
+          <tr><td>V binomiale</td><td>np(1−p)</td></tr>
+          <tr><td>Int. fluctuation 95%</td><td>[p−1/√n, p+1/√n]</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:1.5rem;">
+    💡 Imprime cette page (Ctrl+P) pour avoir toutes les formules sous la main !
+  </div>
+</div>
+
+<!-- ===== GRAND QCM ===== -->
+<div id="qcm" class="section">
+  <div class="fiche-title" style="padding:0 0 0.5rem">🎯 Grand QCM Bac — 20 questions</div>
+  <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">Teste tes connaissances sur tout le programme. Résultat à la fin !</p>
+
+  <div id="qcm-global-score" style="display:none;margin-bottom:1.5rem;">
+    <div class="score-bar">
+      <div><div class="score-num" id="gq-score">0</div><div class="score-label">/ 20 réponses</div></div>
+      <div class="score-track"><div class="score-fill" id="gq-bar" style="width:0%"></div></div>
+      <div id="gq-msg" style="color:var(--muted);font-size:0.88rem;"></div>
+    </div>
+  </div>
+
+  <!-- QCM 1-20 -->
+  <div class="qcm-card">
+    <div class="qcm-question">1. La dérivée de f(x) = x·ln(x) est :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq1',1)"><span class="letter">A</span>ln(x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq1',1)"><span class="letter">B</span>1 + ln(x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq1',1)"><span class="letter">C</span>x + ln(x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq1',1)"><span class="letter">D</span>1/x</button>
+    </div>
+    <div class="qcm-feedback" id="gq1"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">2. ∫[1,e] (1/x) dx =</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq2',1)"><span class="letter">A</span>1</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq2',1)"><span class="letter">B</span>e</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq2',1)"><span class="letter">C</span>0</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq2',1)"><span class="letter">D</span>e−1</button>
+    </div>
+    <div class="qcm-feedback" id="gq2"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">3. La suite (uₙ) définie par uₙ = (−1)ⁿ/n :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq3',1)"><span class="letter">A</span>Diverge</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq3',1)"><span class="letter">B</span>Converge vers 0</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq3',1)"><span class="letter">C</span>Converge vers 1</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq3',1)"><span class="letter">D</span>Converge vers −1</button>
+    </div>
+    <div class="qcm-feedback" id="gq3"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">4. Si X ~ B(50, 0.6), on peut approcher X par une loi normale car :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq4',1)"><span class="letter">A</span>p > 0.5</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq4',1)"><span class="letter">B</span>n > 10</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq4',1)"><span class="letter">C</span>n ≥ 30, np = 30 ≥ 5, n(1−p) = 20 ≥ 5</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq4',1)"><span class="letter">D</span>p est proche de 1</button>
+    </div>
+    <div class="qcm-feedback" id="gq4"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">5. La solution de y' = −3y avec y(0) = 2 est :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq5',1)"><span class="letter">A</span>y = −3e^(2x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq5',1)"><span class="letter">B</span>y = 2e^(−3x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq5',1)"><span class="letter">C</span>y = 2e^(3x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq5',1)"><span class="letter">D</span>y = e^(−3x)</button>
+    </div>
+    <div class="qcm-feedback" id="gq5"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">6. lim(x→+∞) ln(x)/x =</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq6',1)"><span class="letter">A</span>0</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq6',1)"><span class="letter">B</span>1</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq6',1)"><span class="letter">C</span>+∞</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq6',1)"><span class="letter">D</span>−∞</button>
+    </div>
+    <div class="qcm-feedback" id="gq6"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">7. La fonction f(x) = x² − 4x + 3 est convexe sur ℝ car :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq7',1)"><span class="letter">A</span>f'(x) = 2x−4 s'annule</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq7',1)"><span class="letter">B</span>f''(x) = 2 > 0</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq7',1)"><span class="letter">C</span>f est croissante</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq7',1)"><span class="letter">D</span>Son discriminant est positif</button>
+    </div>
+    <div class="qcm-feedback" id="gq7"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">8. Deux vecteurs u⃗=(1,−2,3) et v⃗=(2,1,0). Ils sont :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq8',1)"><span class="letter">A</span>Orthogonaux (u⃗·v⃗ = 0)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq8',1)"><span class="letter">B</span>Colinéaires</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq8',1)"><span class="letter">C</span>u⃗·v⃗ = 5</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq8',1)"><span class="letter">D</span>u⃗·v⃗ = −1</button>
+    </div>
+    <div class="qcm-feedback" id="gq8"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">9. La somme 1 + q + q² + ... + qⁿ (q ≠ 1) est égale à :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq9',1)"><span class="letter">A</span>(qⁿ−1)/(q−1)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq9',1)"><span class="letter">B</span>(qⁿ⁺¹−1)/(q−1)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq9',1)"><span class="letter">C</span>qⁿ/(q−1)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq9',1)"><span class="letter">D</span>(1−qⁿ)/(q−1)</button>
+    </div>
+    <div class="qcm-feedback" id="gq9"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">10. ln(2) + ln(8) est égal à :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq10',1)"><span class="letter">A</span>ln(10)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq10',1)"><span class="letter">B</span>ln(16) = 4·ln(2)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq10',1)"><span class="letter">C</span>3·ln(2)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq10',1)"><span class="letter">D</span>ln(2)·ln(8)</button>
+    </div>
+    <div class="qcm-feedback" id="gq10"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">11. Pour f(x) = eˣ, on a f⁻¹(x) = :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq11',1)"><span class="letter">A</span>1/eˣ</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq11',1)"><span class="letter">B</span>ln(x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq11',1)"><span class="letter">C</span>−eˣ</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq11',1)"><span class="letter">D</span>log₁₀(x)</button>
+    </div>
+    <div class="qcm-feedback" id="gq11"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">12. L'intervalle de fluctuation au seuil 95% pour p=0.5 et n=100 est :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq12',1)"><span class="letter">A</span>[0.4 , 0.6]</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq12',1)"><span class="letter">B</span>[0.45 , 0.55]</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq12',1)"><span class="letter">C</span>[0.3 , 0.7]</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq12',1)"><span class="letter">D</span>[0 , 1]</button>
+    </div>
+    <div class="qcm-feedback" id="gq12"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">13. La dérivée de f(x) = sin(2x) est :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq13',1)"><span class="letter">A</span>sin(2x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq13',1)"><span class="letter">B</span>cos(2x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq13',1)"><span class="letter">C</span>2·cos(2x)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq13',1)"><span class="letter">D</span>−2·cos(2x)</button>
+    </div>
+    <div class="qcm-feedback" id="gq13"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">14. lim(x→0⁺) x·ln(x) =</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq14',1)"><span class="letter">A</span>0</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq14',1)"><span class="letter">B</span>−∞</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq14',1)"><span class="letter">C</span>1</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq14',1)"><span class="letter">D</span>+∞</button>
+    </div>
+    <div class="qcm-feedback" id="gq14"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">15. Une primitive de f(x) = 1/(2x+1) sur ]−1/2, +∞[ est :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq15',1)"><span class="letter">A</span>ln(2x+1)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq15',1)"><span class="letter">B</span>(1/2)·ln(2x+1)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq15',1)"><span class="letter">C</span>2·ln(2x+1)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq15',1)"><span class="letter">D</span>ln(|2x+1|)/2x</button>
+    </div>
+    <div class="qcm-feedback" id="gq15"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">16. Le coefficient binomial C(7,3) vaut :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq16',1)"><span class="letter">A</span>21</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq16',1)"><span class="letter">B</span>35</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq16',1)"><span class="letter">C</span>42</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq16',1)"><span class="letter">D</span>210</button>
+    </div>
+    <div class="qcm-feedback" id="gq16"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">17. Soit f(x) = x³ − 3x. Les extremums locaux se trouvent en x = :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq17',1)"><span class="letter">A</span>x = 0 seulement</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq17',1)"><span class="letter">B</span>x = −1 (max) et x = 1 (min)</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq17',1)"><span class="letter">C</span>x = 3 et x = −3</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq17',1)"><span class="letter">D</span>x = 1 (max) et x = −1 (min)</button>
+    </div>
+    <div class="qcm-feedback" id="gq17"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">18. La distance du point A(1,2,3) au plan x + y + z = 0 est :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq18',1)"><span class="letter">A</span>6</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq18',1)"><span class="letter">B</span>6/√3 = 2√3</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq18',1)"><span class="letter">C</span>√6</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq18',1)"><span class="letter">D</span>3</button>
+    </div>
+    <div class="qcm-feedback" id="gq18"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">19. f est une fonction continue sur [a,b] avec f(a) < 0 et f(b) > 0. D'après le TVI :</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq19',1)"><span class="letter">A</span>f s'annule exactement une fois</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq19',1)"><span class="letter">B</span>f s'annule au moins une fois sur ]a,b[</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq19',1)"><span class="letter">C</span>f est croissante</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq19',1)"><span class="letter">D</span>f est positive sur [a,b]</button>
+    </div>
+    <div class="qcm-feedback" id="gq19"></div>
+  </div>
+
+  <div class="qcm-card">
+    <div class="qcm-question">20. Si uₙ = (2n+1)/(n+3), alors lim(n→+∞) uₙ =</div>
+    <div class="qcm-options">
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq20',1)"><span class="letter">A</span>1</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq20',1)"><span class="letter">B</span>+∞</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'correct','gq20',1)"><span class="letter">C</span>2</button>
+      <button class="qcm-option" onclick="checkGQCM(this,'wrong','gq20',1)"><span class="letter">D</span>1/3</button>
+    </div>
+    <div class="qcm-feedback" id="gq20"></div>
+  </div>
+
+</div><!-- end qcm section -->
+
+</main>
+
+<script>
+// =================== NAV ===================
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const btns = document.querySelectorAll('.nav-btn');
+  btns.forEach(b => { if (b.getAttribute('onclick').includes(id)) b.classList.add('active'); });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// =================== SUB TABS ===================
+function showSubTab(section, tab) {
+  const allContents = document.querySelectorAll(`#${section} .sub-content`);
+  allContents.forEach(c => c.style.display = 'none');
+  const allTabs = document.querySelectorAll(`#${section} .sub-tab`);
+  allTabs.forEach(t => t.classList.remove('active'));
+  const target = document.getElementById(`${section}-${tab}`);
+  if (target) target.style.display = 'block';
+  event.target.classList.add('active');
+}
+
+// =================== ACCORDION ===================
+function toggleAccordion(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.accordion-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// =================== EXERCISES ===================
+function checkEx(inputId, correct, feedbackId, solId) {
+  const input = document.getElementById(inputId);
+  const feedback = document.getElementById(feedbackId);
+  const val = input.value.trim();
+  if (!val) { feedback.textContent = '⚠️ Entre une réponse d\'abord.'; feedback.className = 'ex-feedback show wrong-fb'; return; }
+  if (val === correct) {
+    input.className = 'ex-input correct';
+    feedback.innerHTML = '✅ Bravo ! C\'est la bonne réponse !';
+    feedback.className = 'ex-feedback show correct-fb';
+  } else {
+    input.className = 'ex-input wrong';
+    feedback.innerHTML = `❌ Pas tout à fait. Ta réponse : ${val}. Regarde la solution !`;
+    feedback.className = 'ex-feedback show wrong-fb';
+  }
+}
+
+function checkExText(inputId, corrects, feedbackId, solId) {
+  const input = document.getElementById(inputId);
+  const feedback = document.getElementById(feedbackId);
+  const val = input.value.trim().toLowerCase().replace(/\s/g,'');
+  const match = corrects.some(c => c.toLowerCase().replace(/\s/g,'') === val);
+  if (match) {
+    input.className = 'ex-input correct';
+    feedback.innerHTML = '✅ Bonne réponse !';
+    feedback.className = 'ex-feedback show correct-fb';
+  } else {
+    input.className = 'ex-input wrong';
+    feedback.innerHTML = `❌ Incorrect. Consulte la solution.`;
+    feedback.className = 'ex-feedback show wrong-fb';
+  }
+}
+
+function checkExApprox(inputId, target, tolerance, feedbackId, solId) {
+  const input = document.getElementById(inputId);
+  const feedback = document.getElementById(feedbackId);
+  const val = parseFloat(input.value);
+  if (isNaN(val)) { feedback.textContent = '⚠️ Entrer un nombre.'; feedback.className = 'ex-feedback show wrong-fb'; return; }
+  if (Math.abs(val - target) <= tolerance) {
+    input.className = 'ex-input correct';
+    feedback.innerHTML = '✅ Correct (valeur approchée acceptée) !';
+    feedback.className = 'ex-feedback show correct-fb';
+  } else {
+    input.className = 'ex-input wrong';
+    feedback.innerHTML = `❌ Pas tout à fait (ta réponse : ${val}, attendu ≈ ${target}).`;
+    feedback.className = 'ex-feedback show wrong-fb';
+  }
+}
+
+function toggleSolution(solId) {
+  const sol = document.getElementById(solId);
+  sol.classList.toggle('show');
+}
+
+// =================== QCM ===================
+function checkQCM(btn, result, feedbackId) {
+  const card = btn.closest('.qcm-card');
+  const options = card.querySelectorAll('.qcm-option');
+  options.forEach(o => o.disabled = true);
+  const feedback = document.getElementById(feedbackId);
+  btn.classList.add('selected');
+  if (result === 'correct') {
+    btn.classList.add('correct');
+    feedback.innerHTML = '✅ Correct !';
+    feedback.className = 'qcm-feedback show correct-fb';
+  } else {
+    btn.classList.add('wrong');
+    // Show correct
+    options.forEach(o => { if (o.getAttribute('onclick').includes("'correct'")) o.classList.add('correct'); });
+    feedback.innerHTML = '❌ Pas correct. La bonne réponse est en vert.';
+    feedback.className = 'qcm-feedback show wrong-fb';
+  }
+}
+
+// =================== GRAND QCM ===================
+let gqcmScore = 0;
+let gqcmAnswered = 0;
+const totalQ = 20;
+
+function checkGQCM(btn, result, feedbackId, pts) {
+  const card = btn.closest('.qcm-card');
+  const options = card.querySelectorAll('.qcm-option');
+  options.forEach(o => o.disabled = true);
+  const feedback = document.getElementById(feedbackId);
+  btn.classList.add('selected');
+  gqcmAnswered++;
+  if (result === 'correct') {
+    btn.classList.add('correct');
+    feedback.innerHTML = '✅ Correct !';
+    feedback.className = 'qcm-feedback show correct-fb';
+    gqcmScore++;
+  } else {
+    btn.classList.add('wrong');
+    options.forEach(o => { if (o.getAttribute('onclick') && o.getAttribute('onclick').includes("'correct'")) o.classList.add('correct'); });
+    feedback.innerHTML = '❌ Raté. La bonne réponse est en vert.';
+    feedback.className = 'qcm-feedback show wrong-fb';
+  }
+  updateGQCMScore();
+}
+
+function updateGQCMScore() {
+  const scoreDiv = document.getElementById('qcm-global-score');
+  scoreDiv.style.display = 'flex';
+  document.getElementById('gq-score').textContent = gqcmScore;
+  document.getElementById('gq-bar').style.width = (gqcmScore/totalQ*100)+'%';
+  const pct = Math.round(gqcmScore/totalQ*100);
+  let msg = '';
+  if (gqcmAnswered === totalQ) {
+    if (pct >= 90) msg = '🏆 Excellent ! Tu es prêt(e) pour le bac !';
+    else if (pct >= 70) msg = '👍 Bien ! Révise les chapitres où tu as buté.';
+    else if (pct >= 50) msg = '📚 Moyen. Reprends les fiches de cours !';
+    else msg = '💪 Courage ! Retourne sur les fiches et réessaye.';
+  } else {
+    msg = `${gqcmAnswered}/${totalQ} questions répondues`;
+  }
+  document.getElementById('gq-msg').textContent = msg;
+}
+</script>
+</body>
+</html>
